@@ -1,0 +1,1 @@
+转换选定目录下所有doc/docx/ppt/pptx到PDF, 需要安装有Office 2010或Office2013, 直接运行Office2PDF.exe即可, 会保留原始目录结构
