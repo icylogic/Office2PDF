@@ -6,7 +6,6 @@ ComObjError(false)
 wordApp:=comobjcreate("word.application")
 Loop, %officeFolder%\*.doc?, , 1
 {
-    StringReplace, OutputVar, InputVar, SearchText [, ReplaceText, All]
     StringReplace, outFolder, A_LoopFileDir, %officeFolder%, , All
     SplitPath, A_LoopFileName,,,, outNameNoExt
     FileCreateDir, %pdfFolder%%outFolder%
@@ -18,7 +17,6 @@ wordApp.quit(0)
 pptApp:=comobjcreate("Powerpoint.Application")
 Loop, %officeFolder%\*.ppt?, , 1
 {
-    StringReplace, OutputVar, InputVar, SearchText [, ReplaceText, All]
     StringReplace, outFolder, A_LoopFileDir, %officeFolder%, , All
     SplitPath, A_LoopFileName,,,, outNameNoExt
     FileCreateDir, %pdfFolder%%outFolder%
@@ -26,6 +24,14 @@ Loop, %officeFolder%\*.ppt?, , 1
     ppt2pdf(pptApp, A_LoopFileLongPath, outputFile)
 }
 pptApp.quit
+
+Loop, %officeFolder%\*.pdf, , 1
+{
+    StringReplace, outFolder, A_LoopFileDir, %officeFolder%, , All
+    FileCreateDir, %pdfFolder%%outFolder%
+    outFolder:= pdfFolder . outFolder . "\"
+    FileCopy, %A_LoopFileLongPath%, %outFolder%
+}
 
 Run, %pdfFolder%
 
